@@ -39,9 +39,10 @@ def get_map_data():
     road_ids = road_name_to_ids.get(road_name, [])
 
     grouped_data = get_traffic_data(interval, road_name)
-    print(grouped_data)
 
-    edges = grouped_data[["id", "traffic_volume"]].to_dict(orient="records")
+    edges = grouped_data[["id", "traffic_volume", "congestion_level"]].to_dict(
+        orient="records"
+    )
     response_data = {
         "interval": interval,  # 문자열일 수도 있으니, 필요하면 int로 변환
         "road_name": road_name,
