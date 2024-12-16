@@ -2,20 +2,20 @@ import pandas as pd
 
 
 road_name_to_file = {
-    "도로없음": "static/data_with_congestion/data.csv",
-    "강남대로": "static/data_with_congestion/gangnam.csv",
-    "논현로": "static/data_with_congestion/nonhyeon.csv",
-    "도곡로": "static/data_with_congestion/dogok.csv",
-    "도산로": "static/data_with_congestion/dosan.csv",
-    "봉은사로": "static/data_with_congestion/bongeunsa.csv",
-    "삼성로": "static/data_with_congestion/samsung.csv",
-    "선릉로": "static/data_with_congestion/seolleung.csv",
-    "압구정로": "static/data_with_congestion/apgujeong.csv",
-    "역삼로": "static/data_with_congestion/yeoksam.csv",
-    "영동대로": "static/data_with_congestion/yeongdong.csv",
-    "온주로": "static/data_with_congestion/eonju.csv",
-    "테헤란로": "static/data_with_congestion/teheran.csv",
-    "학동로": "static/data_with_congestion/hakdong.csv",
+    "도로없음": "static/data/data.csv",
+    "강남대로": "static/data/gangnam.csv",
+    "논현로": "static/data/nonhyeon.csv",
+    "도곡로": "static/data/dogok.csv",
+    "도산로": "static/data/dosan.csv",
+    "봉은사로": "static/data/bongeunsa.csv",
+    "삼성로": "static/data/samsung.csv",
+    "선릉로": "static/data/seolleung.csv",
+    "압구정로": "static/data/apgujeong.csv",
+    "역삼로": "static/data/yeoksam.csv",
+    "영동대로": "static/data/yeongdong.csv",
+    "온주로": "static/data/eonju.csv",
+    "테헤란로": "static/data/teheran.csv",
+    "학동로": "static/data/hakdong.csv",
 }
 
 

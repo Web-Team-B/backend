@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from .data_processor import get_traffic_data, get_data_with_hours
+from .xmlToJson import parse_sumo_network, pase_sumo_to_geoJson
 
 
 bp = Blueprint("강남", __name__, url_prefix="/api/gangnam")
@@ -68,3 +69,19 @@ def get_graph_data():
 
     result = grouped_data.to_dict(orient="records")
     return jsonify(result), 200
+
+
+# 네트워크 파일 상의 도로 정보 확인하기기
+@bp.route("/network", methods=["GET"])
+def get_network():
+    file_path = "static/data/gangnam.net.xml"  # SUMO 네트워크 파일 경로
+    network_data = parse_sumo_network(file_path)
+    return jsonify(network_data)
+
+
+# 실제 지도에 네트워크 파일 내의 도로 정보 이용하기기
+@bp.route("/geojson", methods=["GET"])
+def get_geojson():
+    file_path = "static/data/gangnam.net.xml"  # SUMO 네트워크 파일 경로
+    geojson_data = pase_sumo_to_geoJson(file_path)
+    return jsonify(geojson_data)
