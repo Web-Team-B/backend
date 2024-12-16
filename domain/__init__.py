@@ -1,8 +1,10 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
 
     # api들 등록 예시
     # from .users import user_controller
