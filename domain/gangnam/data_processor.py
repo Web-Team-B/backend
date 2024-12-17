@@ -52,10 +52,13 @@ def get_data_with_hours(road_name, road_ids):
     data.fillna(0, inplace=True)
     data["traffic_volume"] = data["entered"] + data["departed"]
     filtered_data = data[data["id"].isin(road_ids)]
+    filtered_data = filtered_data[
+        (filtered_data["interval"] >= 7) & (filtered_data["interval"] <= 21)
+    ]
 
     grouped_data = (
         filtered_data.groupby("interval", as_index=False)
-        .agg({"traffic_volume": "sum", "speed": "mean"})
+        .agg({"traffic_volume": "sum", "speed": lambda x: (x.mean() * 3.6).round(2)})
         .sort_values(by="interval")
     )
     return grouped_data

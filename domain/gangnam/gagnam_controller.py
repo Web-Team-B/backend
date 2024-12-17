@@ -62,10 +62,15 @@ def get_graph_data():
     if not road_ids:
         return jsonify({"error": f"'{road_name}'에 해당하는 도로정보가 없습니다."}), 400
 
-    grouped_data = get_data_with_hours(road_name, road_ids)
+    toll_data = get_data_with_hours(road_name, road_ids)
+    no_toll_data = get_data_with_hours("요금없음", road_ids)
 
-    result = grouped_data.to_dict(orient="records")
-    return jsonify(result), 200
+    # 두 데이터를 합쳐 JSON 응답 생성
+    response = {
+        "toll": toll_data.to_dict(orient="records"),  # 요금 부과 데이터
+        "no_toll": no_toll_data.to_dict(orient="records"),  # 요금 미부과 데이터
+    }
+    return jsonify(response), 200
 
 
 # 네트워크 파일 상의 도로 정보 확인하기기
