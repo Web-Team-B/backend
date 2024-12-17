@@ -2,7 +2,7 @@ import pandas as pd
 
 
 road_name_to_file = {
-    "도로없음": "static/data/data.csv",
+    "요금없음": "static/data/data.csv",
     "강남대로": "static/data/gangnam.csv",
     "논현로": "static/data/nonhyeon.csv",
     "도곡로": "static/data/dogok.csv",
@@ -19,7 +19,7 @@ road_name_to_file = {
 }
 
 
-def get_traffic_data(interval, road_name):
+def get_traffic_data(road_name):
 
     data = pd.read_csv(road_name_to_file.get(road_name))
 
@@ -27,21 +27,22 @@ def get_traffic_data(interval, road_name):
 
     data["traffic_volume"] = data["entered"] + data["departed"]
 
-    interval = int(interval)
-    # 시간 구간 필터링
-    filtered_data = data[data["interval"] == interval]
+    # interval 범위 설정 (7 ~ 21)
+    start_interval, end_interval = 7, 21
+    filtered_data = data[
+        (data["interval"] >= start_interval) & (data["interval"] <= end_interval)
+    ]
 
     # 시간별 그룹화하여 통행량 계산
     response = (
-        filtered_data.groupby(["interval", "id"], as_index=False)
+        filtered_data.groupby("id", as_index=False)
         .agg(
             {
                 "traffic_volume": "sum",  # 통행량 합계
                 "speed": "mean",  # 평균 속도
-                "congestion_level": "max",  # 혼잡도 (최대값 또는 다른 통계 기준 사용 가능)
             }
         )
-        .sort_values(by=["interval", "id"])
+        .sort_values(by="id")
     )
     return response
 
